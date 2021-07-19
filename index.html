@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en-US" data-ok="0" data-scrolling="1" data-audio="0" data-loading="0" data-sub="0" data-nav="1">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.12,minimum-scale=1.0,shrink-to-fit=no">
+<title>Simplenuff Chess</title>
+<meta name="description" content="Minimalistic chess game">
+<meta name="about" content="Chess game based on https://vole.wtf/kilobytes-gambit/ with a couple of new features: undo and choose color to play">
+<link rel="canonical" href="index.html">
+<base target="_top">
+
+<link rel="icon" href="./favicon.png">
+<meta name="theme-color" content="#101010">
+<meta name="msapplication-config" content="none">
+
+<script>
+	if ((!document.all) && (window.requestAnimationFrame)) document.documentElement.setAttribute('data-ok', '1');
+</script>
+
+<link rel="stylesheet" href="common3636.css?v=1.19">
+<style>
+ :root {
+  --piecesbgimage: url('pieces.png');
+}
+ html {
+    -webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	overflow-x: hidden;
+	overflow-y: scroll;
+	line-height: 1.2;
+	background: #000000;
+}
+@media (min-aspect-ratio: 1/1) and (-webkit-min-device-pixel-ratio: 2) and (min-width: 480px) and (min-height: 280px) {
+    html {
+        font-size: 15px;
+    }
+}
+@media (min-aspect-ratio: 1/1) and (min-resolution: 2dppx) and (min-width: 480px) and (min-height: 280px) {
+    html {
+        font-size: 15px;
+    }
+}
+@media (min-aspect-ratio: 1/1) and (min-width: 640px) and (min-height: 400px) {
+    html {
+        font-size: 20px;
+    }
+}
+@media (min-aspect-ratio: 1/1) and (min-width: 960px) and (min-height: 600px) {
+    html {
+        font-size: 30px;
+    }
+}
+@media (min-aspect-ratio: 1/1) and (min-width: 1280px) and (min-height: 600px) {
+    html {
+        font-size: 40px;
+    }
+}
+@media (max-aspect-ratio: 1/1) {
+    html {
+        font-size: 5.556vw;
+    }
+}
+@media (max-aspect-ratio: 1/1) and (min-width: 720px) {
+    html {
+        font-size: 40px;
+    }
+}
+main {
+    background: #1c1c1c;
+    color: #f0f0f0;
+    font-size: 20px;
+}
+#container1 {
+    width: 100%;
+    background: #000000;
+}
+#container2 {
+    background: #000000;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto 0 auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+@media (min-aspect-ratio: 1/1) {
+    #container2 {
+        width: 32rem;
+        height: 20rem;
+    }
+}
+@media (max-aspect-ratio: 1/1) {
+    #container2 {
+        width: 18rem;
+        height: 24rem;
+    }
+}
+header, section, #fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    overflow: hidden;
+    color: rgba(0,0,0,0);
+}
+header {
+    z-index: 3;
+}
+#help {
+    z-index: 2;
+}
+#game {
+    z-index: 1;
+}
+@media (min-aspect-ratio: 1/1) {
+    header {
+        background: #000000
+    }
+    header a[href="#help"] {
+        display: none;
+        position: absolute;
+        left: 19.5rem;
+        top: 13.2rem;
+        width: 8.5rem;
+        height: 2rem;
+    }
+}
+@media (max-aspect-ratio: 1/1) {
+    header {
+        background: #000000
+    }
+    header a[href="#help"] {
+        display: none;
+        position: absolute;
+        left: 10.3rem;
+        top: 20.5rem;
+        width: 7.4rem;
+        height: 2.8rem;
+    }
+}
+@media (min-aspect-ratio: 1/1) {
+    #help, #game {
+        background: #000000 url('help-game-landscape.png') 0 -1rem no-repeat;
+        background-size: 32rem 106rem;
+    }
+}
+@media (max-aspect-ratio: 1/1) {
+    #help, #game {
+        background: #000000 url('help-game-portrait.png') -1rem 0 no-repeat;
+        background-size: 96rem 24rem;
+    }
+}
+@media (min-aspect-ratio: 1/1) {
+    #help a[href="#game"] {
+        position: absolute;
+        left: 19.2rem;
+        top: 13.9rem;
+        width: 11.8rem;
+        height: 2rem;
+    }
+    #help a[href="#info"] {
+        position: absolute;
+        left: 19.2rem;
+        top: 16.3rem;
+        width: 11.8rem;
+        height: 2rem;
+    }
+}
+@media (max-aspect-ratio: 1/1) {
+    #help a[href="#game"] {
+        position: absolute;
+        left: 10.3rem;
+        top: 20.5rem;
+        width: 7.4rem;
+        height: 2.8rem;
+    }
+    #game input[type=checkbox] {
+        margin-top: 4.1rem;
+        margin-left: 13.8rem;
+        height: .75rem;
+        width: .75rem;
+    }
+}
+#board {
+    touch-action: manipulation;
+}
+#board span {
+    visibility: hidden;
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    background: var(--piecesbgimage) -21rem 0 no-repeat;
+    background-size: 42rem 6rem;
+}
+#board span.on {
+    visibility: visible;
+}
+#board span#highlight {
+    background-position: -18rem 0;
+}
+#board div {
+    display: none;
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    margin: 0.7rem 0 0 0.5rem;
+    cursor: crosshair;
+}
+#board *[data-p="1"] {
+    background-position: 0 0;
+}
+#board *[data-p="2"] {
+    background-position: -3rem 0;
+}
+#board *[data-p="3"] {
+    background-position: -6rem 0;
+}
+#board *[data-p="4"] {
+    background-position: -9rem 0;
+}
+#board *[data-p="5"] {
+    background-position: -12rem 0;
+}
+#board *[data-p="6"] {
+    background-position: -15rem 0;
+}
+#board *[data-p="9"] {
+    background-position: -24rem 0;
+}
+#board *[data-p="10"] {
+    background-position: -27rem 0;
+}
+#board *[data-p="11"] {
+    background-position: -30rem 0;
+}
+#board *[data-p="12"] {
+    background-position: -33rem 0;
+}
+#board *[data-p="13"] {
+    background-position: -36rem 0;
+}
+#board *[data-p="14"] {
+    background-position: -39rem 0;
+}
+#board span#moving {
+    display: none;
+}
+#board span#moving.on {
+    display: block;
+    transition: top 0.25s, left 0.25s;
+}
+#board span#moving[data-p="1"] {
+    background-position: 0 -3rem;
+}
+#board span#moving[data-p="2"] {
+    background-position: -3rem -3rem;
+}
+#board span#moving[data-p="3"] {
+    background-position: -6rem -3rem;
+}
+#board span#moving[data-p="4"] {
+    background-position: -9rem -3rem;
+}
+#board span#moving[data-p="5"] {
+    background-position: -12rem -3rem;
+}
+#board span#moving[data-p="6"] {
+    background-position: -15rem -3rem;
+}
+#board span#moving[data-p="9"] {
+    background-position: -24rem -3rem;
+}
+#board span#moving[data-p="10"] {
+    background-position: -27rem -3rem;
+}
+#board span#moving[data-p="11"] {
+    background-position: -30rem -3rem;
+}
+#board span#moving[data-p="12"] {
+    background-position: -33rem -3rem;
+}
+#board span#moving[data-p="13"] {
+    background-position: -36rem -3rem;
+}
+#board span#moving[data-p="14"] {
+    background-position: -39rem -3rem;
+}
+@media (min-aspect-ratio: 1/1) {
+    #game {
+        background-position: 0 -22rem;
+    }
+    #game.lookDown {
+        background-position: 0 -43rem;
+    }
+    #game.lookLeft {
+        background-position: 0 -64rem;
+    }
+    #game.lookRight {
+        background-position: 0 -85rem;
+    }
+    #game a[href="#game"] {
+        position: absolute;
+        left: 19.2rem;
+        top: 13.2rem;
+        width: 11.8rem;
+        height: 2rem;
+    }
+    #game a[href="#info"] {
+        position: absolute;
+        left: 19.2rem;
+        top: 15.4rem;
+        width: 11.8rem;
+        height: 2rem;
+    }
+    #game a[href="#playaswhite"] {
+        position: absolute;
+        left: 19.2rem;
+        top: 17.6rem;
+        width: 11.8rem;
+        height: 2rem;
+    }
+    #game input[type=checkbox] {
+        margin-left: 1.3rem;
+        margin-top: 0.5rem;
+        width: 1rem;
+        height: 1rem;
+    }
+    #board *[data-l="0"] {
+        left: 1.4rem;
+    }
+    #board *[data-l="1"] {
+        left: 3.4rem;
+    }
+    #board *[data-l="2"] {
+        left: 5.4rem;
+    }
+    #board *[data-l="3"] {
+        left: 7.4rem;
+    }
+    #board *[data-l="4"] {
+        left: 9.4rem;
+    }
+    #board *[data-l="5"] {
+        left: 11.4rem;
+    }
+    #board *[data-l="6"] {
+        left: 13.4rem;
+    }
+    #board *[data-l="7"] {
+        left: 15.4rem;
+    }
+    #board *[data-t="0"] {
+        top: 1.3rem;
+    }
+    #board *[data-t="1"] {
+        top: 3.3rem;
+    }
+    #board *[data-t="2"] {
+        top: 5.3rem;
+    }
+    #board *[data-t="3"] {
+        top: 7.3rem;
+    }
+    #board *[data-t="4"] {
+        top: 9.3rem;
+    }
+    #board *[data-t="5"] {
+        top: 11.3rem;
+    }
+    #board *[data-t="6"] {
+        top: 13.3rem;
+    }
+    #board *[data-t="7"] {
+        top: 15.3rem;
+    }
+}
+@media (max-aspect-ratio: 1/1) {
+    #game {
+        background-position: -20rem 0;
+    }
+    #game.lookDown {
+        background-position: -39rem 0;
+    }
+    #game.lookLeft {
+        background-position: -58rem 0;
+    }
+    #game.lookRight {
+        background-position: -77rem 0;
+    }
+    #game a[href="#game"] {
+        position: absolute;
+        left: 13.3rem;
+        top: 0rem;
+        width: 4.1rem;
+        height: 1.8rem;
+    }
+    #game a[href="#info"] {
+        position: absolute;
+        left: 13.3rem;
+        top: 1.8rem;
+        width: 4.1rem;
+        height: 1.8rem;
+    }
+    #game a[href="#playaswhite"] {
+        position: absolute;
+        left: 13.3rem;
+        top: 3.6rem;
+        width: 4.1rem;
+        height: 1.8rem;
+    }
+    #game input[type=checkbox] {
+        margin-left: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    #board *[data-l="0"] {
+        left: 0.5rem;
+    }
+    #board *[data-l="1"] {
+        left: 2.5rem;
+    }
+    #board *[data-l="2"] {
+        left: 4.5rem;
+    }
+    #board *[data-l="3"] {
+        left: 6.5rem;
+    }
+    #board *[data-l="4"] {
+        left: 8.5rem;
+    }
+    #board *[data-l="5"] {
+        left: 10.5rem;
+    }
+    #board *[data-l="6"] {
+        left: 12.5rem;
+    }
+    #board *[data-l="7"] {
+        left: 14.5rem;
+    }
+    #board *[data-t="0"] {
+        top: 6.3rem;
+    }
+    #board *[data-t="1"] {
+        top: 8.3rem;
+    }
+    #board *[data-t="2"] {
+        top: 10.3rem;
+    }
+    #board *[data-t="3"] {
+        top: 12.3rem;
+    }
+    #board *[data-t="4"] {
+        top: 14.3rem;
+    }
+    #board *[data-t="5"] {
+        top: 16.3rem;
+    }
+    #board *[data-t="6"] {
+        top: 18.3rem;
+    }
+    #board *[data-t="7"] {
+        top: 20.3rem;
+    }
+}
+#fade {
+    visibility: hidden;
+    z-index: 4;
+    background-size: 0.8rem 1.6rem;
+}
+ </style>
+	
+</head>
+<body>
+	
+<div data-nosnippet>
+
+<main>
+	<script>
+        function setupcode() {
+            for(B=y=u=b=0,x=10,z=15,I=[],l=[];l[B]=("ustvrtsuqqqqqqqq"+"yyyyyyyy}{|~z|{}@G@TSb~?A6J57IKJT576,+-48HLSUmgukgg OJNMLK  IDHGFE").charCodeAt(B)-64,B++<120;I[B-1]=B%x?B/x%x<2|B%x<2?7:B/x&4?0:l[u++]:7);X=(c,h,e,S,s)=>{c^=8;for(var T,o,L,E,D,O=20,G,N=-1e8,n,g,d=S&&X(c,0)>1e4,C,R,A,K=78-h<<9,a=c?x:-x;++O<99;)if((o=I[T=O])&&(G=o&z^c)<7){A=G--&2?8:4;C=9-o&z?l[61+G]:49;do{R=I[T+=l[C]];g=D=G|T+a-e?0:e;if(!R&&(G||A<3||g)||(1+R&z^c)>9&&G|A>2){if(!(2-R&7))return K;for(E=n=G|I[T-a]-7?o&z:6^c;E;E=!E&&!d&&!(g=T,D=T<O?g-3:g+2,I[D]<z|I[D+O-T]|I[T+=T-O])){L=(R&&l[R&7|32]*2-h-G)+(G?0:n-o&z?110:(D&&14)+(A<2)+1);if(S>h||1<S&S==h&&L>2|d){I[T]=n,I[g]=I[D],I[O]=D?I[D]=0:0;L-=X(c,h+1,E=G|A>1?0:T,S,L-N);if(!(h||S-1|B-O|T-b|L<-1e4))return W(I,B=b,c,y=E);E=1-G|A<7|D|!S|R|o<z||X(c,0)>1e4;I[O]=o;I[T]=R;I[D]=I[g];D?I[g]=G?0:9^c:0}if(L>N||!h&L==N&&Math.random()<.5)if(N=L,S>1)if(h?s-L<0:(B=O,b=T,0))return N}}}while(!R&G>2||(T=O,G|A>2|z<o&!R&&++C*--A))}return-K+768<N|d&&N};Y=(V)=>{X(8,0,y,V);X(8,0,y,1)};Z=(U)=>{b=U;I[b]&8?W(I,B=b):X(0,0,y,1)}
+        }
+        setupcode();
+	</script>
+
+	<div id="container1">
+		<div id="container2">
+
+			<header>
+				<p><a href="#help">Next</a></p>
+			</header>
+
+            <section id="game">
+				<h2 hidden>The Game</h2>
+				<div id="board">
+					<span id="highlight"></span>
+					
+					<span data-t="0" data-l="0"></span><span data-t="0" data-l="1"></span><span data-t="0" data-l="2"></span><span data-t="0" data-l="3"></span><span data-t="0" data-l="4"></span><span data-t="0" data-l="5"></span><span data-t="0" data-l="6"></span><span data-t="0" data-l="7"></span>
+					<span data-t="1" data-l="0"></span><span data-t="1" data-l="1"></span><span data-t="1" data-l="2"></span><span data-t="1" data-l="3"></span><span data-t="1" data-l="4"></span><span data-t="1" data-l="5"></span><span data-t="1" data-l="6"></span><span data-t="1" data-l="7"></span>
+					<span data-t="2" data-l="0"></span><span data-t="2" data-l="1"></span><span data-t="2" data-l="2"></span><span data-t="2" data-l="3"></span><span data-t="2" data-l="4"></span><span data-t="2" data-l="5"></span><span data-t="2" data-l="6"></span><span data-t="2" data-l="7"></span>
+					<span data-t="3" data-l="0"></span><span data-t="3" data-l="1"></span><span data-t="3" data-l="2"></span><span data-t="3" data-l="3"></span><span data-t="3" data-l="4"></span><span data-t="3" data-l="5"></span><span data-t="3" data-l="6"></span><span data-t="3" data-l="7"></span>
+					<span data-t="4" data-l="0"></span><span data-t="4" data-l="1"></span><span data-t="4" data-l="2"></span><span data-t="4" data-l="3"></span><span data-t="4" data-l="4"></span><span data-t="4" data-l="5"></span><span data-t="4" data-l="6"></span><span data-t="4" data-l="7"></span>
+					<span data-t="5" data-l="0"></span><span data-t="5" data-l="1"></span><span data-t="5" data-l="2"></span><span data-t="5" data-l="3"></span><span data-t="5" data-l="4"></span><span data-t="5" data-l="5"></span><span data-t="5" data-l="6"></span><span data-t="5" data-l="7"></span>
+					<span data-t="6" data-l="0"></span><span data-t="6" data-l="1"></span><span data-t="6" data-l="2"></span><span data-t="6" data-l="3"></span><span data-t="6" data-l="4"></span><span data-t="6" data-l="5"></span><span data-t="6" data-l="6"></span><span data-t="6" data-l="7"></span>
+					<span data-t="7" data-l="0"></span><span data-t="7" data-l="1"></span><span data-t="7" data-l="2"></span><span data-t="7" data-l="3"></span><span data-t="7" data-l="4"></span><span data-t="7" data-l="5"></span><span data-t="7" data-l="6"></span><span data-t="7" data-l="7"></span>
+					
+					<span id="moving"></span>
+					
+					<div data-t="0" data-l="0"></div><div data-t="0" data-l="1"></div><div data-t="0" data-l="2"></div><div data-t="0" data-l="3"></div><div data-t="0" data-l="4"></div><div data-t="0" data-l="5"></div><div data-t="0" data-l="6"></div><div data-t="0" data-l="7"></div>
+					<div data-t="1" data-l="0"></div><div data-t="1" data-l="1"></div><div data-t="1" data-l="2"></div><div data-t="1" data-l="3"></div><div data-t="1" data-l="4"></div><div data-t="1" data-l="5"></div><div data-t="1" data-l="6"></div><div data-t="1" data-l="7"></div>
+					<div data-t="2" data-l="0"></div><div data-t="2" data-l="1"></div><div data-t="2" data-l="2"></div><div data-t="2" data-l="3"></div><div data-t="2" data-l="4"></div><div data-t="2" data-l="5"></div><div data-t="2" data-l="6"></div><div data-t="2" data-l="7"></div>
+					<div data-t="3" data-l="0"></div><div data-t="3" data-l="1"></div><div data-t="3" data-l="2"></div><div data-t="3" data-l="3"></div><div data-t="3" data-l="4"></div><div data-t="3" data-l="5"></div><div data-t="3" data-l="6"></div><div data-t="3" data-l="7"></div>
+					<div data-t="4" data-l="0"></div><div data-t="4" data-l="1"></div><div data-t="4" data-l="2"></div><div data-t="4" data-l="3"></div><div data-t="4" data-l="4"></div><div data-t="4" data-l="5"></div><div data-t="4" data-l="6"></div><div data-t="4" data-l="7"></div>
+					<div data-t="5" data-l="0"></div><div data-t="5" data-l="1"></div><div data-t="5" data-l="2"></div><div data-t="5" data-l="3"></div><div data-t="5" data-l="4"></div><div data-t="5" data-l="5"></div><div data-t="5" data-l="6"></div><div data-t="5" data-l="7"></div>
+					<div data-t="6" data-l="0"></div><div data-t="6" data-l="1"></div><div data-t="6" data-l="2"></div><div data-t="6" data-l="3"></div><div data-t="6" data-l="4"></div><div data-t="6" data-l="5"></div><div data-t="6" data-l="6"></div><div data-t="6" data-l="7"></div>
+					<div data-t="7" data-l="0"></div><div data-t="7" data-l="1"></div><div data-t="7" data-l="2"></div><div data-t="7" data-l="3"></div><div data-t="7" data-l="4"></div><div data-t="7" data-l="5"></div><div data-t="7" data-l="6"></div><div data-t="7" data-l="7"></div>
+					
+				</div>
+				<p>
+                    <a href="#game"></a>
+                    <a href="#info"></a>
+                    <a href="#playaswhite">
+                        <input type="checkbox" id="chkPlayAsWhite" checked />
+                    </a>
+                </p>
+			</section>			
+		</div>
+	</div>
+</main>
+
+</div>
+
+<script src="zepto.min.js"></script>
+<script>
+var CALCDEPTH = 4;
+var UNDOBOARD = window.I.slice();
+var UNDOBOARDGLOBAL = window.I.slice();
+var UNDOBOARDHISTORY = [];
+var UNDOING = false;
+var UNDOhighlightbl = 999;
+var UNDOhighlightbt = 999;
+var CURRENTLYMOVING = false;
+var PLAYASWHITE = true;
+var LASTI = window.I.slice();
+var ORIGINALI = window.I.slice();
+
+if (new URLSearchParams(window.location.search).get('playasblack') === "1") {
+    chkPlayAsWhite.checked = PLAYASWHITE = false;
+}
+W(window.I, window.B);
+var firstMove = true;
+
+function SETPIECESIMAGE(isWhite) {
+    if (isWhite)
+        document.documentElement.style.setProperty('--piecesbgimage', 'url(\'pieces.png\')');
+    else
+        document.documentElement.style.setProperty('--piecesbgimage', 'url(\'piecesb.png\')');
+}
+
+function RESETBOARD() {
+    window.I = ORIGINALI;
+    PLAYASWHITE = chkPlayAsWhite.checked;
+
+    UNDOING = false;
+    LASTI = window.I.slice();
+    $('#board div').show();
+    firstMove = true;
+
+    SETPIECESIMAGE(PLAYASWHITE);
+    setupcode();
+
+    if (!PLAYASWHITE) {
+        ORIGINALI = JSON.parse("[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,53,51,52,50,54,52,51,53,7,7,49,49,49,49,49,49,49,49,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,57,57,57,57,57,57,57,57,7,7,61,59,60,58,62,60,59,61,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]");
+        window.I = ORIGINALI.slice();
+    }
+
+    W(window.I, window.B);
+    UNDOBOARD = window.I.slice();
+    UNDOBOARDGLOBAL = window.I.slice();
+    UNDOBOARDHISTORY = [];
+    if (!PLAYASWHITE) {
+        Y(CALCDEPTH);
+    }    
+}
+
+function PLAYASWHITECLICKED() {
+    if (!CURRENTLYMOVING) {
+        UNDOING = false;
+        var restart = firstMove && (UNDOBOARDHISTORY.length == 0);
+        if (!restart)
+            restart = confirm('Do you want to restart now to play as ' + (chkPlayAsWhite.checked ? 'white' : 'black') + '?');
+        if (restart) {
+            firstMove = true;
+            RESETBOARD();
+        }
+    }
+}
+
+function UNDOCLICKED() {
+    if (!CURRENTLYMOVING) {
+        if(JSON.stringify(I) !== JSON.stringify(UNDOBOARDGLOBAL)) {
+            if (confirm('Undo last movement?')) {
+                if (UNDOBOARDHISTORY.length === 0 && !chkPlayAsWhite.checked) {
+                    RESETBOARD();
+                }
+                else {
+                    UNDOING = true;
+                    I = UNDOBOARDGLOBAL.slice();
+                    if (UNDOBOARDHISTORY.length > 0) {
+                        UNDOBOARDHISTORY.pop();
+                        if (UNDOBOARDHISTORY.length > 0)
+                            UNDOBOARDGLOBAL = UNDOBOARDHISTORY[UNDOBOARDHISTORY.length - 1];
+                    }
+                    if (UNDOhighlightbt !== 999 && UNDOhighlightbl !== 999)
+                        $('#highlight').data('l', UNDOhighlightbl).data('t', UNDOhighlightbt).removeClass('on');
+                    placePieces(I);
+                    //prevent stalemate undo lock
+                    $('#board div').show();
+                }
+            }
+        }
+    }
+}
+
+function showPieces() {
+    var p = $('#board span[data-t]:not(.on)');
+    p.addClass('on');
+    $('#game a[href="#game"]').show();
+    CURRENTLYMOVING = false;
+    $('#board div').show();
+}
+
+function placePieces(I) {
+    for (var t = 0; t < 8; t++) {
+        for (var l = 0; l < 8; l++) {
+            $('#board span[data-l="' + l + '"][data-t="' + t + '"]').data('p', I[21 + 10 * t + l] % 48);
+        }
+    }
+}
+
+$('#game a[href="#game"]').on('click', function() {
+    if (confirm('Reset board and start again?'))
+        RESETBOARD();
+});
+
+$('#chkPlayAsWhite').on('click', function(e) {
+    e.stopPropagation();
+    PLAYASWHITECLICKED();
+});
+
+$('#help a[href="#playaswhite"], #game a[href="#playaswhite"]').on('click', function() {
+    chkPlayAsWhite.checked = !chkPlayAsWhite.checked;
+    PLAYASWHITECLICKED();
+});
+
+$('#help a[href="#info"], #game a[href="#info"]').on('click', function() {
+    UNDOCLICKED();
+});
+
+$('#board').on('click', 'div', function() {
+    if (!CURRENTLYMOVING) {
+        UNDOBOARD = I.slice();
+        if ($('#game a[href="#game"]').css('display') !== 'none') {
+            Z(21 + 10 * parseInt($(this).data('t'), 10) + parseInt($(this).data('l')));
+        }
+    }
+});
+
+var cpuStuck;
+
+function W(I, B, c) {
+    cpuStuck = false;
+    $('#game a[href="#game"]').hide();
+    var bt = Math.floor((B - 21) / 10);
+    var bl = B - 21 - 10 * bt;
+    UNDOhighlightbl = 999;
+    UNDOhighlightbt = 999;
+    $('#game').removeClass('lookDown lookLeft lookRight');
+    if ((bt >= 0) && (bt <= 7) && (bl >= 0) && (bl <= 7)) {
+        $('#highlight').data('l', bl).data('t', bt).addClass('on');
+        UNDOhighlightbl = bl;
+        UNDOhighlightbt = bt;
+        if (bl < 2) {
+            $('#game').addClass('lookLeft');
+        } else {
+            if (bl > 5) {
+                $('#game').addClass('lookRight');
+            } else {
+                if (bt < 4) {
+                    $('#game').addClass('lookDown');
+                }
+            }
+        }
+    } else {
+        $('#highlight').removeClass('on');
+    }
+    var movedT, movedL;
+    var movedType = 999;
+    for (var tt = 0; tt < 8; tt++) {
+        for (var ll = 0; ll < 8; ll++) {
+            if (I[21 + 10 * tt + ll] == 0) {
+                var ii = LASTI[21 + 10 * tt + ll] % 48;
+                if (((c == 8) && (ii > 8)) || ((c !== 8) && (ii < 7) && (ii > 0))) {
+                    if (ii < movedType) {
+                        movedType = ii;
+                        movedT = tt;
+                        movedL = ll;
+                    }
+                }
+            }
+        }
+    }
+    if (movedType === 999) {
+        placePieces(I);
+        LASTI = I.slice();
+        if (c === 8) {
+            setTimeout(function() {
+                cpuStuck = true;
+                Y(CALCDEPTH);
+                if (cpuStuck) {
+                    $('#game a[href="#game"]').show();
+                    CURRENTLYMOVING = false;
+                    $('#board div').hide();
+                }
+            }, 400);
+        } else {
+            $('#game a[href="#game"]').show();
+            CURRENTLYMOVING = false;
+        }
+        return;
+    }
+    CURRENTLYMOVING = true;
+    firstMove = false;
+    $('#board span[data-l="' + movedL + '"][data-t="' + movedT + '"]').data('p', 0);
+    if (!UNDOING)
+        $('#moving').data('p', movedType).data('t', movedT).data('l', movedL).addClass('on');
+    setTimeout(function() {
+        if (!UNDOING)
+            $('#moving').data('t', bt).data('l', bl);
+        UNDOING = false;
+        setTimeout(function() {
+            $('#moving').removeClass('on');
+            placePieces(I);
+            LASTI = I.slice();
+            if (c === 8) {
+                setTimeout(function() {
+                    UNDOBOARDGLOBAL = UNDOBOARD.slice();
+                    UNDOBOARDHISTORY.push(UNDOBOARD.slice());
+                    cpuStuck = true;
+                    Y(CALCDEPTH);
+                    if (cpuStuck) {
+                        $('#game a[href="#game"]').show();
+                        CURRENTLYMOVING = false;
+                        $('#board div').hide();
+                    }
+                }, 240);
+            } else {
+                $('#game a[href="#game"]').show();
+                CURRENTLYMOVING = false;
+            }
+        }, 200);
+    }, 125);
+}
+
+$(window).on('load', function() {	
+    $('header').hide();
+    $('#game a[href="#game"]').hide();
+    showPieces();
+    if (!PLAYASWHITE) {
+        RESETBOARD();
+    }
+});
+
+</script>
+</body>
+</html>
