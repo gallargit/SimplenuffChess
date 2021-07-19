@@ -2,6 +2,8 @@
 
 Chess game based on "The Kilobyte's Gambit" https://vole.wtf/kilobytes-gambit/ with a couple of new features: undo and choose color to play. Original nanochess engine by Oscar Toledo https://nanochess.org/ . Used with kind permission of the original authors.
 
+[PLAY NOW](https://gallargit.github.io/SimplenuffChess/)
+
 # About
 I got to know this game and I liked playing with it. Since I'm not a very good chess player I often got frustrated when I made a silly move in the middle of the game spoiling it. So I started tweaking the code around to figure out a way to implement an "Undo" button. Then this feature became a full "History Undo", and then I thought... well, why not implement play as black as well?
 
