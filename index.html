@@ -542,19 +542,26 @@ header {
 <script src="zepto.min.js"></script>
 <script>
 var CALCDEPTH = 3;
-var UNDOBOARD = window.I.slice();
-var UNDOBOARDGLOBAL = window.I.slice();
+var UNDOBOARD = window.I.slice(0);
+var UNDOBOARDGLOBAL = window.I.slice(0);
 var UNDOBOARDHISTORY = [];
 var UNDOING = false;
 var UNDOhighlightbl = 999;
 var UNDOhighlightbt = 999;
 var CURRENTLYMOVING = false;
 var PLAYASWHITE = true;
-var LASTI = window.I.slice();
-var ORIGINALI = window.I.slice();
+var LASTI = window.I.slice(0);
+var ORIGINALI = window.I.slice(0);
 
-if (new URLSearchParams(window.location.search).get('playasblack') === "1") {
+var qsparams=new URLSearchParams(window.location.search);
+if (qsparams.get('playasblack') === "1") {
     chkPlayAsWhite.checked = PLAYASWHITE = false;
+}
+var paramdepth = qsparams.get('calcdepth');
+if (!isNaN(paramdepth)) {
+    var paramdepthnumber = parseInt(paramdepth);
+    if (paramdepthnumber > 1 && paramdepthnumber < 8)
+        CALCDEPTH = paramdepthnumber;
 }
 W(window.I, window.B);
 var firstMove = true;
@@ -571,7 +578,7 @@ function RESETBOARD() {
     PLAYASWHITE = chkPlayAsWhite.checked;
 
     UNDOING = false;
-    LASTI = window.I.slice();
+    LASTI = window.I.slice(0);
     $('#board div').show();
     firstMove = true;
 
@@ -580,12 +587,12 @@ function RESETBOARD() {
 
     if (!PLAYASWHITE) {
         ORIGINALI = JSON.parse("[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,53,51,52,50,54,52,51,53,7,7,49,49,49,49,49,49,49,49,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,57,57,57,57,57,57,57,57,7,7,61,59,60,58,62,60,59,61,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]");
-        window.I = ORIGINALI.slice();
+        window.I = ORIGINALI.slice(0);
     }
 
     W(window.I, window.B);
-    UNDOBOARD = window.I.slice();
-    UNDOBOARDGLOBAL = window.I.slice();
+    UNDOBOARD = window.I.slice(0);
+    UNDOBOARDGLOBAL = window.I.slice(0);
     UNDOBOARDHISTORY = [];
     if (!PLAYASWHITE) {
         Y(CALCDEPTH);
@@ -614,7 +621,7 @@ function UNDOCLICKED() {
                 }
                 else {
                     UNDOING = true;
-                    I = UNDOBOARDGLOBAL.slice();
+                    I = UNDOBOARDGLOBAL.slice(0);
                     if (UNDOBOARDHISTORY.length > 0) {
                         UNDOBOARDHISTORY.pop();
                         if (UNDOBOARDHISTORY.length > 0)
@@ -653,13 +660,17 @@ $('#game a[href="#game"]').on('click', function() {
 });
 
 $('#chkPlayAsWhite').on('click', function(e) {
-    e.stopPropagation();
-    PLAYASWHITECLICKED();
+    if (!CURRENTLYMOVING) {
+        e.stopPropagation();
+        PLAYASWHITECLICKED();
+    }
 });
 
 $('#help a[href="#playaswhite"], #game a[href="#playaswhite"]').on('click', function() {
-    chkPlayAsWhite.checked = !chkPlayAsWhite.checked;
-    PLAYASWHITECLICKED();
+    if (!CURRENTLYMOVING) {
+        chkPlayAsWhite.checked = !chkPlayAsWhite.checked;
+        PLAYASWHITECLICKED();
+    }
 });
 
 $('#help a[href="#info"], #game a[href="#info"]').on('click', function() {
@@ -668,7 +679,7 @@ $('#help a[href="#info"], #game a[href="#info"]').on('click', function() {
 
 $('#board').on('click', 'div', function() {
     if (!CURRENTLYMOVING) {
-        UNDOBOARD = I.slice();
+        UNDOBOARD = I.slice(0);
         if ($('#game a[href="#game"]').css('display') !== 'none') {
             Z(21 + 10 * parseInt($(this).data('t'), 10) + parseInt($(this).data('l')));
         }
@@ -721,7 +732,7 @@ function W(I, B, c) {
     }
     if (movedType === 999) {
         placePieces(I);
-        LASTI = I.slice();
+        LASTI = I.slice(0);
         if (c === 8) {
             setTimeout(function() {
                 cpuStuck = true;
@@ -750,11 +761,11 @@ function W(I, B, c) {
         setTimeout(function() {
             $('#moving').removeClass('on');
             placePieces(I);
-            LASTI = I.slice();
+            LASTI = I.slice(0);
             if (c === 8) {
                 setTimeout(function() {
-                    UNDOBOARDGLOBAL = UNDOBOARD.slice();
-                    UNDOBOARDHISTORY.push(UNDOBOARD.slice());
+                    UNDOBOARDGLOBAL = UNDOBOARD.slice(0);
+                    UNDOBOARDHISTORY.push(UNDOBOARD.slice(0));
                     cpuStuck = true;
                     Y(CALCDEPTH);
                     if (cpuStuck) {

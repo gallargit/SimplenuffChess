@@ -15,6 +15,16 @@ Since I spent quite some time doing this I thought it would be a good idea to re
 - New colors for the chess pieces
 - Removed animations, help screens, etc. Simplenuff!
 
+# Querystring switches
+- calcdepth: it will change the calculation depth the engine uses. Values range from 2 to 7. Default is 3. The bigger the number, the slower it gets.
+index.html?calcdepth=4
+
+- playasblack: it will make the player play as black
+index.html?playasblack=1
+
+you can combine both
+index.html?playasblack=1&calcdepth=3
+
 # Technical info
 Everything I modified is included in the "index.html" file. My modifications are usually written in capital letters, so that it can be easy to find what's new.
 
