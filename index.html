@@ -19,7 +19,6 @@
 	if ((!document.all) && (window.requestAnimationFrame)) document.documentElement.setAttribute('data-ok', '1');
 </script>
 
-<link rel="stylesheet" href="common3636.css?v=1.19">
 <style>
  :root {
   --piecesbgimage: url('pieces.png');
@@ -35,6 +34,7 @@
 	overflow-y: scroll;
 	line-height: 1.2;
 	background: #000000;
+    background-color: #000000;
 }
 @media (min-aspect-ratio: 1/1) and (-webkit-min-device-pixel-ratio: 2) and (min-width: 480px) and (min-height: 280px) {
     html {
@@ -584,7 +584,6 @@ function RESETBOARD() {
 
     SETPIECESIMAGE(PLAYASWHITE);
     setupcode();
-
     if (!PLAYASWHITE) {
         ORIGINALI = JSON.parse("[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,53,51,52,50,54,52,51,53,7,7,49,49,49,49,49,49,49,49,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,0,7,7,57,57,57,57,57,57,57,57,7,7,61,59,60,58,62,60,59,61,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7]");
         window.I = ORIGINALI.slice(0);
@@ -596,7 +595,7 @@ function RESETBOARD() {
     UNDOBOARDHISTORY = [];
     if (!PLAYASWHITE) {
         Y(CALCDEPTH);
-    }    
+    }
 }
 
 function PLAYASWHITECLICKED() {
@@ -646,10 +645,10 @@ function showPieces() {
     $('#board div').show();
 }
 
-function placePieces(I) {
+function placePieces(board) {
     for (var t = 0; t < 8; t++) {
         for (var l = 0; l < 8; l++) {
-            $('#board span[data-l="' + l + '"][data-t="' + t + '"]').data('p', I[21 + 10 * t + l] % 48);
+            $('#board span[data-l="' + l + '"][data-t="' + t + '"]').data('p', board[21 + 10 * t + l] % 48);
         }
     }
 }
