@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.12,minimum-scale=1.0,shrink-to-fit=no">
 <title>Simplenuff Chess</title>
 <meta name="description" content="Minimalistic chess game">
-<meta name="about" content="Chess game based on https://vole.wtf/kilobytes-gambit/ with a couple of new features: undo and choose color to play">
+<meta name="about" content="Chess game based on The Kylobytes Gambit https://vole.wtf/kilobytes-gambit/ with a couple of new features: undo and choose color to play">
 <link rel="canonical" href="index.html">
 <base target="_top">
 
@@ -102,7 +102,7 @@ main {
         height: 24rem;
     }
 }
-header, section, #fade {
+header, section {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -126,36 +126,20 @@ header {
     header {
         background: #000000
     }
-    header a[href="#help"] {
-        display: none;
-        position: absolute;
-        left: 19.5rem;
-        top: 13.2rem;
-        width: 8.5rem;
-        height: 2rem;
-    }
 }
 @media (max-aspect-ratio: 1/1) {
     header {
         background: #000000
     }
-    header a[href="#help"] {
-        display: none;
-        position: absolute;
-        left: 10.3rem;
-        top: 20.5rem;
-        width: 7.4rem;
-        height: 2.8rem;
-    }
 }
 @media (min-aspect-ratio: 1/1) {
-    #help, #game {
+    #game {
         background: #000000 url('help-game-landscape.png') 0 -1rem no-repeat;
         background-size: 32rem 106rem;
     }
 }
 @media (max-aspect-ratio: 1/1) {
-    #help, #game {
+    #game {
         background: #000000 url('help-game-portrait.png') -1rem 0 no-repeat;
         background-size: 96rem 24rem;
     }
@@ -165,13 +149,6 @@ header {
         position: absolute;
         left: 19.2rem;
         top: 13.9rem;
-        width: 11.8rem;
-        height: 2rem;
-    }
-    #help a[href="#info"] {
-        position: absolute;
-        left: 19.2rem;
-        top: 16.3rem;
         width: 11.8rem;
         height: 2rem;
     }
@@ -472,38 +449,25 @@ header {
         top: 20.3rem;
     }
 }
-#fade {
-    visibility: hidden;
-    z-index: 4;
-    background-size: 0.8rem 1.6rem;
-}
  </style>
 	
 </head>
 <body>
 	
 <div data-nosnippet>
-
 <main>
 	<script>
         function setupcode() {
-            for(B=y=u=b=0,x=10,z=15,I=[],l=[];l[B]=("ustvrtsuqqqqqqqq"+"yyyyyyyy}{|~z|{}@G@TSb~?A6J57IKJT576,+-48HLSUmgukgg OJNMLK  IDHGFE").charCodeAt(B)-64,B++<120;I[B-1]=B%x?B/x%x<2|B%x<2?7:B/x&4?0:l[u++]:7);X=(c,h,e,S,s)=>{c^=8;for(var T,o,L,E,D,O=20,G,N=-1e8,n,g,d=S&&X(c,0)>1e4,C,R,A,K=78-h<<9,a=c?x:-x;++O<99;)if((o=I[T=O])&&(G=o&z^c)<7){A=G--&2?8:4;C=9-o&z?l[61+G]:49;do{R=I[T+=l[C]];g=D=G|T+a-e?0:e;if(!R&&(G||A<3||g)||(1+R&z^c)>9&&G|A>2){if(!(2-R&7))return K;for(E=n=G|I[T-a]-7?o&z:6^c;E;E=!E&&!d&&!(g=T,D=T<O?g-3:g+2,I[D]<z|I[D+O-T]|I[T+=T-O])){L=(R&&l[R&7|32]*2-h-G)+(G?0:n-o&z?110:(D&&14)+(A<2)+1);if(S>h||1<S&S==h&&L>2|d){I[T]=n,I[g]=I[D],I[O]=D?I[D]=0:0;L-=X(c,h+1,E=G|A>1?0:T,S,L-N);if(!(h||S-1|B-O|T-b|L<-1e4))return W(I,B=b,c,y=E);E=1-G|A<7|D|!S|R|o<z||X(c,0)>1e4;I[O]=o;I[T]=R;I[D]=I[g];D?I[g]=G?0:9^c:0}if(L>N||!h&L==N&&Math.random()<.5)if(N=L,S>1)if(h?s-L<0:(B=O,b=T,0))return N}}}while(!R&G>2||(T=O,G|A>2|z<o&!R&&++C*--A))}return-K+768<N|d&&N};Y=(V)=>{X(8,0,y,V);X(8,0,y,1)};Z=(U)=>{b=U;I[b]&8?W(I,B=b):X(0,0,y,1)}
+            for(window.B=y=u=b=0,x=10,z=15,I=[],l=[];l[window.B]=("ustvrtsuqqqqqqqq"+"yyyyyyyy}{|~z|{}@G@TSb~?A6J57IKJT576,+-48HLSUmgukgg OJNMLK  IDHGFE").charCodeAt(window.B)-64,window.B++<120;window.I[window.B-1]=window.B%x?window.B/x%x<2|window.B%x<2?7:window.B/x&4?0:l[u++]:7);X=(c,h,e,S,s)=>{c^=8;for(var T,o,L,E,D,O=20,G,N=-1e8,n,g,d=S&&X(c,0)>1e4,C,R,A,K=78-h<<9,a=c?x:-x;++O<99;)if((o=window.I[T=O])&&(G=o&z^c)<7){A=G--&2?8:4;C=9-o&z?l[61+G]:49;do{R=window.I[T+=l[C]];g=D=G|T+a-e?0:e;if(!R&&(G||A<3||g)||(1+R&z^c)>9&&G|A>2){if(!(2-R&7))return K;for(E=n=G|window.I[T-a]-7?o&z:6^c;E;E=!E&&!d&&!(g=T,D=T<O?g-3:g+2,window.I[D]<z|window.I[D+O-T]|window.I[T+=T-O])){L=(R&&l[R&7|32]*2-h-G)+(G?0:n-o&z?110:(D&&14)+(A<2)+1);if(S>h||1<S&S==h&&L>2|d){window.I[T]=n,window.I[g]=window.I[D],window.I[O]=D?window.I[D]=0:0;L-=X(c,h+1,E=G|A>1?0:T,S,L-N);if(!(h||S-1|window.B-O|T-b|L<-1e4))return W(window.I,window.B=b,c,y=E);E=1-G|A<7|D|!S|R|o<z||X(c,0)>1e4;window.I[O]=o;window.I[T]=R;window.I[D]=window.I[g];D?window.I[g]=G?0:9^c:0}if(L>N||!h&L==N&&Math.random()<.5)if(N=L,S>1)if(h?s-L<0:(window.B=O,b=T,0))return N}}}while(!R&G>2||(T=O,G|A>2|z<o&!R&&++C*--A))}return-K+768<N|d&&N};Y=(V)=>{X(8,0,y,V);X(8,0,y,1)};Z=(U)=>{b=U;window.I[b]&8?W(window.I,window.B=b):X(0,0,y,1)}
         }
         setupcode();
 	</script>
 
 	<div id="container1">
 		<div id="container2">
-
-			<header>
-				<p><a href="#help">Next</a></p>
-			</header>
-
             <section id="game">
-				<h2 hidden>The Game</h2>
 				<div id="board">
 					<span id="highlight"></span>
-					
 					<span data-t="0" data-l="0"></span><span data-t="0" data-l="1"></span><span data-t="0" data-l="2"></span><span data-t="0" data-l="3"></span><span data-t="0" data-l="4"></span><span data-t="0" data-l="5"></span><span data-t="0" data-l="6"></span><span data-t="0" data-l="7"></span>
 					<span data-t="1" data-l="0"></span><span data-t="1" data-l="1"></span><span data-t="1" data-l="2"></span><span data-t="1" data-l="3"></span><span data-t="1" data-l="4"></span><span data-t="1" data-l="5"></span><span data-t="1" data-l="6"></span><span data-t="1" data-l="7"></span>
 					<span data-t="2" data-l="0"></span><span data-t="2" data-l="1"></span><span data-t="2" data-l="2"></span><span data-t="2" data-l="3"></span><span data-t="2" data-l="4"></span><span data-t="2" data-l="5"></span><span data-t="2" data-l="6"></span><span data-t="2" data-l="7"></span>
@@ -512,9 +476,7 @@ header {
 					<span data-t="5" data-l="0"></span><span data-t="5" data-l="1"></span><span data-t="5" data-l="2"></span><span data-t="5" data-l="3"></span><span data-t="5" data-l="4"></span><span data-t="5" data-l="5"></span><span data-t="5" data-l="6"></span><span data-t="5" data-l="7"></span>
 					<span data-t="6" data-l="0"></span><span data-t="6" data-l="1"></span><span data-t="6" data-l="2"></span><span data-t="6" data-l="3"></span><span data-t="6" data-l="4"></span><span data-t="6" data-l="5"></span><span data-t="6" data-l="6"></span><span data-t="6" data-l="7"></span>
 					<span data-t="7" data-l="0"></span><span data-t="7" data-l="1"></span><span data-t="7" data-l="2"></span><span data-t="7" data-l="3"></span><span data-t="7" data-l="4"></span><span data-t="7" data-l="5"></span><span data-t="7" data-l="6"></span><span data-t="7" data-l="7"></span>
-					
 					<span id="moving"></span>
-					
 					<div data-t="0" data-l="0"></div><div data-t="0" data-l="1"></div><div data-t="0" data-l="2"></div><div data-t="0" data-l="3"></div><div data-t="0" data-l="4"></div><div data-t="0" data-l="5"></div><div data-t="0" data-l="6"></div><div data-t="0" data-l="7"></div>
 					<div data-t="1" data-l="0"></div><div data-t="1" data-l="1"></div><div data-t="1" data-l="2"></div><div data-t="1" data-l="3"></div><div data-t="1" data-l="4"></div><div data-t="1" data-l="5"></div><div data-t="1" data-l="6"></div><div data-t="1" data-l="7"></div>
 					<div data-t="2" data-l="0"></div><div data-t="2" data-l="1"></div><div data-t="2" data-l="2"></div><div data-t="2" data-l="3"></div><div data-t="2" data-l="4"></div><div data-t="2" data-l="5"></div><div data-t="2" data-l="6"></div><div data-t="2" data-l="7"></div>
@@ -523,20 +485,16 @@ header {
 					<div data-t="5" data-l="0"></div><div data-t="5" data-l="1"></div><div data-t="5" data-l="2"></div><div data-t="5" data-l="3"></div><div data-t="5" data-l="4"></div><div data-t="5" data-l="5"></div><div data-t="5" data-l="6"></div><div data-t="5" data-l="7"></div>
 					<div data-t="6" data-l="0"></div><div data-t="6" data-l="1"></div><div data-t="6" data-l="2"></div><div data-t="6" data-l="3"></div><div data-t="6" data-l="4"></div><div data-t="6" data-l="5"></div><div data-t="6" data-l="6"></div><div data-t="6" data-l="7"></div>
 					<div data-t="7" data-l="0"></div><div data-t="7" data-l="1"></div><div data-t="7" data-l="2"></div><div data-t="7" data-l="3"></div><div data-t="7" data-l="4"></div><div data-t="7" data-l="5"></div><div data-t="7" data-l="6"></div><div data-t="7" data-l="7"></div>
-					
 				</div>
 				<p>
                     <a href="#game"></a>
                     <a href="#info"></a>
-                    <a href="#playaswhite">
-                        <input type="checkbox" id="chkPlayAsWhite" checked />
-                    </a>
+                    <a href="#playaswhite"><input type="checkbox" id="chkPlayAsWhite" checked /></a>
                 </p>
-			</section>			
+			</section>
 		</div>
 	</div>
 </main>
-
 </div>
 
 <script src="zepto.min.js"></script>
@@ -546,12 +504,29 @@ var UNDOBOARD = window.I.slice(0);
 var UNDOBOARDGLOBAL = window.I.slice(0);
 var UNDOBOARDHISTORY = [];
 var UNDOING = false;
-var UNDOhighlightbl = 999;
-var UNDOhighlightbt = 999;
+var UNDOHIGHLIGHTBL = 999;
+var UNDOHIGHLIGHTBT = 999;
 var CURRENTLYMOVING = false;
 var PLAYASWHITE = true;
 var LASTI = window.I.slice(0);
 var ORIGINALI = window.I.slice(0);
+var SAVEORIGINALI = null;
+var SAVEUNDOBOARDHISTORY = null;
+var SWITCHEDCOLORS = false;
+var SKIPANIMATION = false;
+var FIRSTMOVE = true;
+var SECONDMOVE = false;
+var CPUSTUCK = false;
+
+function SETPIECESIMAGE(isWhite) {
+    if (isWhite)
+        document.documentElement.style.setProperty('--piecesbgimage', 'url(\'pieces.png\')');
+    else
+        document.documentElement.style.setProperty('--piecesbgimage', 'url(\'piecesb.png\')');
+}
+SETPIECESIMAGE(false);
+SETPIECESIMAGE(true);
+
 
 var qsparams=new URLSearchParams(window.location.search);
 if (qsparams.get('playasblack') === "1") {
@@ -564,14 +539,6 @@ if (!isNaN(paramdepth)) {
         CALCDEPTH = paramdepthnumber;
 }
 W(window.I, window.B);
-var firstMove = true;
-
-function SETPIECESIMAGE(isWhite) {
-    if (isWhite)
-        document.documentElement.style.setProperty('--piecesbgimage', 'url(\'pieces.png\')');
-    else
-        document.documentElement.style.setProperty('--piecesbgimage', 'url(\'piecesb.png\')');
-}
 
 function RESETBOARD() {
     window.I = ORIGINALI;
@@ -580,7 +547,8 @@ function RESETBOARD() {
     UNDOING = false;
     LASTI = window.I.slice(0);
     $('#board div').show();
-    firstMove = true;
+    FIRSTMOVE = true;
+    SECONDMOVE = !FIRSTMOVE;
 
     SETPIECESIMAGE(PLAYASWHITE);
     setupcode();
@@ -601,34 +569,62 @@ function RESETBOARD() {
 function PLAYASWHITECLICKED() {
     if (!CURRENTLYMOVING) {
         UNDOING = false;
-        var restart = firstMove && (UNDOBOARDHISTORY.length == 0);
-        if (!restart)
+        var restart = FIRSTMOVE && (UNDOBOARDHISTORY.length === 0);
+        if (!restart) {
             restart = confirm('Do you want to restart now to play as ' + (chkPlayAsWhite.checked ? 'white' : 'black') + '?');
+        }
         if (restart) {
-            firstMove = true;
+            SWITCHEDCOLORS = true;
+            SAVEUNDOBOARDHISTORY = UNDOBOARDHISTORY.slice(0);
+            SAVEORIGINALI = window.I.slice(0);
+            FIRSTMOVE = true;
+            SECONDMOVE = !FIRSTMOVE;
             RESETBOARD();
+        }
+        else {
+            chkPlayAsWhite.checked = !chkPlayAsWhite.checked;
         }
     }
 }
 
 function UNDOCLICKED() {
-    if (!CURRENTLYMOVING) {
-        if(JSON.stringify(I) !== JSON.stringify(UNDOBOARDGLOBAL)) {
+    if (!CURRENTLYMOVING) {        
+        if (JSON.stringify(window.I) !== JSON.stringify(UNDOBOARDGLOBAL) ||
+            (PLAYASWHITE && FIRSTMOVE && SAVEUNDOBOARDHISTORY !== null && 
+            (SAVEUNDOBOARDHISTORY.length === 2 || JSON.stringify(window.I) !== JSON.stringify(SAVEORIGINALI)))) {
             if (confirm('Undo last movement?')) {
-                if (UNDOBOARDHISTORY.length === 0 && !chkPlayAsWhite.checked) {
+                if ((FIRSTMOVE || SECONDMOVE) && SAVEORIGINALI !== null) {
+                    UNDOING = true;
+                    if (SWITCHEDCOLORS)
+                        chkPlayAsWhite.checked = !chkPlayAsWhite.checked;
+                    UNDOBOARDHISTORY = SAVEUNDOBOARDHISTORY.slice(0);
+                    FIRSTMOVE = SECONDMOVE = false;
+                    RESETBOARD();
+                    PLAYASWHITE = chkPlayAsWhite.checked;
+                    window.I = SAVEORIGINALI.slice(0);
+                    SAVEUNDOBOARDHISTORY = null;
+                    SAVEORIGINALI = null;
+                    placePieces(window.I);
+                    SKIPANIMATION = true;
+                    $('#highlight').removeClass('on');
+                    $('#highlight').data('l', $('#highlight')[0].dataset.l).data('t', $('#highlight')[0].dataset.t).removeClass('on');
+                    UNDOING = false;
+                    SWITCHEDCOLORS = false;
+                }
+                else if (UNDOBOARDHISTORY.length === 0 && !chkPlayAsWhite.checked) {
                     RESETBOARD();
                 }
                 else {
                     UNDOING = true;
-                    I = UNDOBOARDGLOBAL.slice(0);
+                    window.I = UNDOBOARDGLOBAL.slice(0);
                     if (UNDOBOARDHISTORY.length > 0) {
                         UNDOBOARDHISTORY.pop();
                         if (UNDOBOARDHISTORY.length > 0)
                             UNDOBOARDGLOBAL = UNDOBOARDHISTORY[UNDOBOARDHISTORY.length - 1];
                     }
-                    if (UNDOhighlightbt !== 999 && UNDOhighlightbl !== 999)
-                        $('#highlight').data('l', UNDOhighlightbl).data('t', UNDOhighlightbt).removeClass('on');
-                    placePieces(I);
+                    if (UNDOHIGHLIGHTBT !== 999 && UNDOHIGHLIGHTBL !== 999)
+                        $('#highlight').data('l', UNDOHIGHLIGHTBL).data('t', UNDOHIGHLIGHTBT).removeClass('on');
+                    placePieces(window.I);
                     //prevent stalemate undo lock
                     $('#board div').show();
                 }
@@ -638,8 +634,7 @@ function UNDOCLICKED() {
 }
 
 function showPieces() {
-    var p = $('#board span[data-t]:not(.on)');
-    p.addClass('on');
+    $('#board span[data-t]:not(.on)').addClass('on');
     $('#game a[href="#game"]').show();
     CURRENTLYMOVING = false;
     $('#board div').show();
@@ -654,14 +649,23 @@ function placePieces(board) {
 }
 
 $('#game a[href="#game"]').on('click', function() {
-    if (confirm('Reset board and start again?'))
+    if (confirm('Reset board and start again?')){
+        SAVEUNDOBOARDHISTORY = UNDOBOARDHISTORY.slice(0);
+        SAVEORIGINALI = window.I.slice(0);
+        FIRSTMOVE = true;
+        SECONDMOVE = !FIRSTMOVE;
+        SWITCHEDCOLORS = false;
         RESETBOARD();
+    }
 });
 
 $('#chkPlayAsWhite').on('click', function(e) {
     if (!CURRENTLYMOVING) {
         e.stopPropagation();
         PLAYASWHITECLICKED();
+    }
+    else {
+        return false;
     }
 });
 
@@ -678,27 +682,25 @@ $('#help a[href="#info"], #game a[href="#info"]').on('click', function() {
 
 $('#board').on('click', 'div', function() {
     if (!CURRENTLYMOVING) {
-        UNDOBOARD = I.slice(0);
+        UNDOBOARD = window.I.slice(0);
         if ($('#game a[href="#game"]').css('display') !== 'none') {
             Z(21 + 10 * parseInt($(this).data('t'), 10) + parseInt($(this).data('l')));
         }
     }
 });
 
-var cpuStuck;
-
 function W(I, B, c) {
-    cpuStuck = false;
+    CPUSTUCK = false;
     $('#game a[href="#game"]').hide();
     var bt = Math.floor((B - 21) / 10);
     var bl = B - 21 - 10 * bt;
-    UNDOhighlightbl = 999;
-    UNDOhighlightbt = 999;
+    UNDOHIGHLIGHTBL = 999;
+    UNDOHIGHLIGHTBT = 999;
     $('#game').removeClass('lookDown lookLeft lookRight');
     if ((bt >= 0) && (bt <= 7) && (bl >= 0) && (bl <= 7)) {
         $('#highlight').data('l', bl).data('t', bt).addClass('on');
-        UNDOhighlightbl = bl;
-        UNDOhighlightbt = bt;
+        UNDOHIGHLIGHTBL = bl;
+        UNDOHIGHLIGHTBT = bt;
         if (bl < 2) {
             $('#game').addClass('lookLeft');
         } else {
@@ -717,9 +719,9 @@ function W(I, B, c) {
     var movedType = 999;
     for (var tt = 0; tt < 8; tt++) {
         for (var ll = 0; ll < 8; ll++) {
-            if (I[21 + 10 * tt + ll] == 0) {
+            if (I[21 + 10 * tt + ll] === 0) {
                 var ii = LASTI[21 + 10 * tt + ll] % 48;
-                if (((c == 8) && (ii > 8)) || ((c !== 8) && (ii < 7) && (ii > 0))) {
+                if (((c === 8) && (ii > 8)) || ((c !== 8) && (ii < 7) && (ii > 0))) {
                     if (ii < movedType) {
                         movedType = ii;
                         movedT = tt;
@@ -729,19 +731,20 @@ function W(I, B, c) {
             }
         }
     }
+
     if (movedType === 999) {
         placePieces(I);
         LASTI = I.slice(0);
         if (c === 8) {
             setTimeout(function() {
-                cpuStuck = true;
+                CPUSTUCK = true;
                 Y(CALCDEPTH);
-                if (cpuStuck) {
+                if (CPUSTUCK) {
                     $('#game a[href="#game"]').show();
                     CURRENTLYMOVING = false;
                     $('#board div').hide();
                 }
-            }, 400);
+            }, 350);
         } else {
             $('#game a[href="#game"]').show();
             CURRENTLYMOVING = false;
@@ -749,13 +752,15 @@ function W(I, B, c) {
         return;
     }
     CURRENTLYMOVING = true;
-    firstMove = false;
+    SECONDMOVE = FIRSTMOVE;
+    FIRSTMOVE = false;
     $('#board span[data-l="' + movedL + '"][data-t="' + movedT + '"]').data('p', 0);
-    if (!UNDOING)
+    if (!UNDOING && !SKIPANIMATION)
         $('#moving').data('p', movedType).data('t', movedT).data('l', movedL).addClass('on');
     setTimeout(function() {
-        if (!UNDOING)
+        if (!UNDOING && !SKIPANIMATION)
             $('#moving').data('t', bt).data('l', bl);
+        SKIPANIMATION = false;
         UNDOING = false;
         setTimeout(function() {
             $('#moving').removeClass('on');
@@ -765,25 +770,23 @@ function W(I, B, c) {
                 setTimeout(function() {
                     UNDOBOARDGLOBAL = UNDOBOARD.slice(0);
                     UNDOBOARDHISTORY.push(UNDOBOARD.slice(0));
-                    cpuStuck = true;
+                    CPUSTUCK = true;
                     Y(CALCDEPTH);
-                    if (cpuStuck) {
+                    if (CPUSTUCK) {
                         $('#game a[href="#game"]').show();
                         CURRENTLYMOVING = false;
                         $('#board div').hide();
                     }
-                }, 240);
+                }, 200);
             } else {
                 $('#game a[href="#game"]').show();
                 CURRENTLYMOVING = false;
             }
-        }, 200);
-    }, 125);
+        }, 170);
+    }, 100);
 }
 
 $(window).on('load', function() {	
-    $('header').hide();
-    $('#game a[href="#game"]').hide();
     showPieces();
     if (!PLAYASWHITE) {
         RESETBOARD();
