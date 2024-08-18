@@ -7,7 +7,7 @@ Chess game based on "[The Kilobyte's Gambit](https://vole.wtf/kilobytes-gambit/)
 # About
 I got to know this game and I liked playing with it. Since I'm not a very good chess player I often got frustrated when I made a silly move in the middle of the game spoiling it. So I started tweaking the code around to figure out a way to implement an "Undo" button. Then this feature became a full "History Undo", and then I thought... well, why not implement play as black as well?
 
-Since I spent quite some time doing this I thought it would be a good idea to release as open source, so here it is.
+Since I spent quite some time doing this I thought it would be a good idea to release it as open source, so here it is.
 
 # New features
 - Undo feature

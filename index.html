@@ -592,7 +592,7 @@ function UNDOCLICKED() {
         if (JSON.stringify(window.I) !== JSON.stringify(UNDOBOARDGLOBAL) ||
             (PLAYASWHITE && FIRSTMOVE && SAVEUNDOBOARDHISTORY !== null && 
             (SAVEUNDOBOARDHISTORY.length === 2 || JSON.stringify(window.I) !== JSON.stringify(SAVEORIGINALI)))) {
-            if (confirm('Undo last movement?')) {
+            if (confirm('Undo last move?')) {
                 if ((FIRSTMOVE || SECONDMOVE) && SAVEORIGINALI !== null) {
                     UNDOING = true;
                     if (SWITCHEDCOLORS)
